@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	<package name="changeLanguage" extends="struts-default">
+		<action name="changeLanguage" class="com.jkxy.action.changeAction">
+			<result name="success">/login.jsp</result>
+			<!-- <result name="success">/Internalhead.jsp</result> -->
+		</action>
+
+	</package>
+	<!--defaultPackage -->
+	<package name="default" extends="struts-default" >
+	 
+		<!--全局返回 -->
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+		
+		<!--inter text -->
+		<action name="text" class="com.jkxy.action.text">
+			 
+			<result name="success">/text.jsp</result>
+		</action>
+
+		<action name="browseCatalog" class="flowerAction" method="browseCatalog">
+			<result name="success">/jsp/main.jsp</result>
+		</action>
+		
+	 
+		
+		<!--浏览花品 -->
+		<action name="browseFlowerPaging" class="flowerAction" method="browseFlowerPaging">
+			<result name="success">/jsp/products.jsp</result>
+		</action>
+
+		<!--userAdd -->
+		<action name="addUser" class="userAction" method="addUser">
+			<result name="success">/register_success.jsp</result>
+			<result name="error">/register.jsp</result>
+		</action>
+
+		<!--logout -->
+		<action name="logOut" class="userAction" method="logOut">
+			<result name="success">/index.jsp</result>
+
+		</action>
+		
+		<!-- 修改密码 -->
+		<action name="updateUserPassword" class="userAction" method="updateUserPassword">
+			<result name="success">/login.jsp</result>
+			<result name="error">/modifyPassword.jsp</result>
+		</action>
+
+		<!--购物车 -->
+		<action name="shoppingAction" class="shoppingAction" method="addToCart">
+			<result name="success">/jsp/shoppingcart.jsp</result>
+		</action>
+
+		<!--更新购物车 -->
+		<action name="updateCart" class="shoppingAction" method="updateCart">
+			<result name="success">/jsp/shoppingcart.jsp</result>
+		</action>
+		<action name="deleteCart" class="shoppingAction" method="deleteCart">
+			<result name="success">/jsp/shoppingcart.jsp</result>
+		</action>
+		
+		<!--订单提交 -->
+		<action name="check" class="orderAction" method="checkOut">
+			<result name="success">/jsp/pay.jsp</result>
+		 
+		</action>
+		
+		<!--支付action  -->
+		<action name="pay" class="com.jkxy.action.orderAction" method="pay">
+			<result name="yhDispatcher">/jsp/yhDispatcher.jsp</result>
+		</action>
+		 
+		<!--查看花品详细信息 -->
+		<action name="displayOneFlower" class="flowerAction" method="displayOneFolwer">
+			<result name="success">/jsp/productdetil.jsp</result>
+		</action>
+	 
+	 	<!--搜索花品 action  -->
+	 	<action name="searchFlower" class="flowerAction" method="searchFlower">
+	 		<result name="success">/jsp/products.jsp</result>
+	 	</action>
+	 
+	</package>
+<!-- admin  package -->
+	<package name="adminManage" namespace="/admin" extends="struts-default">
+	
+		<!-- 浏览花品 -->
+		<action name="browseNewFlower" class="flowerAction" method="browseFlower">
+			<result name="success">/newFlower.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+	
+		<!-- 添加花品 -->
+		<action name="addOrUpdateFlower" class="flowerAction" method="addOrUpdateFlower">
+			<result name="success">/return/add_success.jsp</result>
+			<result name="error"> /addNewFlower.jsp</result>
+		</action>
+		
+		<!--管理花品 -->
+		<action name="managerFlower" class="flowerAction" method="browseAllFlower">
+			<result name="success">/browseAllFlowerPaging.jsp </result>
+		</action>
+		<!--修改花品信息 -->
+		<action name="displayOneFlower" class="flowerAction" method="displayOneFolwer">
+			<result name="success">/displayOneFlower.jsp</result>
+		</action>
+		<!--删除花品 -->
+		<action name="deleteOneFlower" class="flowerAction" method="deleteFlower">
+			<result name="success">/delete.jsp</result>
+		</action>
+		<!-- 挂失 -->
+		<action name="guashiUser" class="userAction" method="guashiUser">
+			<result name="success">/ssh/WebRoot/return/success.jsp</result>
+			<result name="error">/ssh/WebRoot/return/error.jsp</result>
+
+		</action>
+		<!--解挂失 -->
+		<action name="jieguaUser" class="userAction" method="jieguaUser">
+			<result name="success">/ssh/WebRoot/return/success.jsp</result>
+			<result name="error">/ssh/WebRoot/return/error.jsp</result>
+		</action>
+		
+	</package>
+
+	<!-- package login -->
+	<package name="loginpac" namespace="/login" extends="struts-default">
+	
+ 	<!-- checkuser -->
+		<action name="checkUser" class="userAction" method="checkUser">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			 
+			<result name="success">/index.jsp</result>
+			<result name="error">/index.jsp</result>
+			<result name="invalid.token">/login.jsp</result>
+		</action>
+		<!--checkAdmin  -->
+		<action name="checkAdmin" class="userAction" method="checkAdmin">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			 
+			<result name="success">/admin_main.jsp</result>
+			<result name="error">/index.jsp</result>
+			<result name="invalid.token">/login.jsp</result>
+		</action>
+	</package>
+</struts> 
+
+
+
+
+   
